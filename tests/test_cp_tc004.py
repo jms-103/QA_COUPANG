@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from pages.main_page import MainPage
-from pages.header_view import HeaderView
+from common.common import Common
 from pages.cart_page import CartPage
 from pages.product_page import ProductPage
 from pages.product_list_page import ProductListPage
@@ -24,7 +24,7 @@ class TestCpTC004:
     def test_price_filter(self, driver, COST):
         wait = WebDriverWait(driver, 10)
         main_page = MainPage(driver)
-        header_view = HeaderView(driver)
+        common = Common(driver)
         product_list_page = ProductListPage(driver)
         
         KEYWORD = '노트북'
@@ -36,13 +36,13 @@ class TestCpTC004:
             main_page.move_main()
             wait.until(
                 EC.presence_of_element_located(
-                    (By.XPATH, header_view.get_search())
+                    (By.XPATH, common.get_search())
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 키워드 검색
-            header_view.search_items(KEYWORD)
+            common.search_items(KEYWORD)
 
             # 상품리스트 페이지
             wait.until(
@@ -51,7 +51,7 @@ class TestCpTC004:
                     (By.XPATH, product_list_page.get_product_name_topN(0))
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 가격 필터링
             product_list_page.filter_price_range(COST[0], COST[1])
@@ -61,7 +61,7 @@ class TestCpTC004:
                     (By.XPATH, product_list_page.get_product_name_topN(0))
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             result = product_list_page.get_top3_price_list()
 
@@ -79,7 +79,7 @@ class TestCpTC004:
     def test_brand_filter(self, driver, FILTER_KEYWORD):
         wait = WebDriverWait(driver, 10)
         main_page = MainPage(driver)
-        header_view = HeaderView(driver)
+        common = Common(driver)
         product_list_page = ProductListPage(driver)
         
 
@@ -92,13 +92,13 @@ class TestCpTC004:
             main_page.move_main()
             wait.until(
                 EC.presence_of_element_located(
-                    (By.XPATH, header_view.get_search())
+                    (By.XPATH, common.get_search())
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 키워드 검색
-            header_view.search_items(KEYWORD)
+            common.search_items(KEYWORD)
 
             # 상품리스트 페이지
             wait.until(
@@ -107,7 +107,7 @@ class TestCpTC004:
                     (By.XPATH, product_list_page.get_product_name_topN(0))
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 브랜드 필터링
             product_list_page.click_brand_filter(FILTER_KEYWORD)
@@ -117,7 +117,7 @@ class TestCpTC004:
                     (By.XPATH, product_list_page.get_product_name_topN(0))
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             result = product_list_page.get_top3_product_dict()
 
@@ -135,7 +135,7 @@ class TestCpTC004:
     def test_rating_filter(self, driver, RATING):
         wait = WebDriverWait(driver, 10)
         main_page = MainPage(driver)
-        header_view = HeaderView(driver)
+        common = Common(driver)
         product_list_page = ProductListPage(driver)
         
 
@@ -148,13 +148,13 @@ class TestCpTC004:
             main_page.move_main()
             wait.until(
                 EC.presence_of_element_located(
-                    (By.XPATH, header_view.get_search())
+                    (By.XPATH, common.get_search())
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 키워드 검색
-            header_view.search_items(KEYWORD)
+            common.search_items(KEYWORD)
 
             # 상품리스트 페이지
             wait.until(
@@ -163,7 +163,7 @@ class TestCpTC004:
                     (By.XPATH, product_list_page.get_product_name_topN(0))
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 별점 필터링
             product_list_page.click_rating_filter(RATING)  
@@ -173,7 +173,7 @@ class TestCpTC004:
                     (By.XPATH, product_list_page.get_product_name_topN(0))
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             result = product_list_page.get_top3_rating_list()
 
@@ -193,7 +193,7 @@ class TestCpTC004:
     def test_multiple_filter(self, driver, RATING, FILTER_KEYWORD, COST):
         wait = WebDriverWait(driver, 10)
         main_page = MainPage(driver)
-        header_view = HeaderView(driver)
+        common = Common(driver)
         product_list_page = ProductListPage(driver)
         
 
@@ -210,13 +210,13 @@ class TestCpTC004:
             main_page.move_main()
             wait.until(
                 EC.presence_of_element_located(
-                    (By.XPATH, header_view.get_search())
+                    (By.XPATH, common.get_search())
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 키워드 검색
-            header_view.search_items(KEYWORD)
+            common.search_items(KEYWORD)
 
             # 상품리스트 페이지
             wait.until(
@@ -225,7 +225,7 @@ class TestCpTC004:
                     (By.XPATH, product_list_page.get_product_name_topN(0))
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 1. 가격 필터링
             product_list_page.filter_price_range(COST[0], COST[1])
@@ -236,7 +236,7 @@ class TestCpTC004:
                 )
             )
             tag_count += 1
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 2. 브랜드 필터링
             product_list_page.click_brand_filter(FILTER_KEYWORD)
@@ -247,7 +247,7 @@ class TestCpTC004:
                 )
             )
             tag_count += 1
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 3. 별점 필터링
             product_list_page.click_rating_filter(RATING)  
@@ -258,7 +258,7 @@ class TestCpTC004:
                 )
             )
             tag_count += 1
-            header_view.sleep_random()
+            common.sleep_random()
         
             result = product_list_page.get_tags_list(tag_count)
 
@@ -282,7 +282,7 @@ class TestCpTC004:
     def test_reset(self, driver, RATING):
         wait = WebDriverWait(driver, 10)
         main_page = MainPage(driver)
-        header_view = HeaderView(driver)
+        common = Common(driver)
         product_list_page = ProductListPage(driver)
         
 
@@ -297,13 +297,13 @@ class TestCpTC004:
         main_page.move_main()
         wait.until(
             EC.presence_of_element_located(
-                (By.XPATH, header_view.get_search())
+                (By.XPATH, common.get_search())
             )
         )
-        header_view.sleep_random()
+        common.sleep_random()
 
         # 키워드 검색
-        header_view.search_items(KEYWORD)
+        common.search_items(KEYWORD)
 
         # 상품리스트 페이지
         wait.until(
@@ -312,7 +312,7 @@ class TestCpTC004:
                 (By.XPATH, product_list_page.get_product_name_topN(0))
             )
         )
-        header_view.sleep_random()
+        common.sleep_random()
 
         # 별점 필터링
         product_list_page.click_rating_filter(RATING)  
@@ -323,7 +323,7 @@ class TestCpTC004:
             )
         )
         tag_count += 1
-        header_view.sleep_random()
+        common.sleep_random()
 
         assert product_list_page.get_tags_list(tag_count)
 
@@ -336,7 +336,7 @@ class TestCpTC004:
 
         # 필터 리셋 클릭.
         product_list_page.click_reset_filter()
-        header_view.sleep_random()
+        common.sleep_random()
 
         try:
             product_list_page.get_tags_list(tag_count)

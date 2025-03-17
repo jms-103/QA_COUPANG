@@ -9,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from pages.main_page import MainPage
 from pages.cart_page import CartPage
-from pages.header_view import HeaderView
+from common.common import Common
 from pages.product_list_page import ProductListPage
 from pages.product_page import ProductPage
 from pages.special_price_page import SpecialPricePage
@@ -49,7 +49,7 @@ class TestCpTC005:
     def test_filter_discount_rate(self, driver, FILTER_INDEX, PRODUCT_NUM):
         wait = WebDriverWait(driver, 10)
         special_price_page = SpecialPricePage(driver)
-        header_view = HeaderView(driver)
+        common = Common(driver)
 
         try:
             product_rate = 0
@@ -63,7 +63,7 @@ class TestCpTC005:
                     (By.XPATH, special_price_page.get_original_price())
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
             filter_rate = special_price_page.click_filter_discount_rate(FILTER_INDEX)
             # 물건(가격) 하나 뜰 때 까지
             wait.until(
@@ -71,7 +71,7 @@ class TestCpTC005:
                     (By.XPATH, special_price_page.get_original_price())
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
             discount_rate_text = driver.find_element(By.XPATH, special_price_page.get_discount_rate(PRODUCT_NUM)).text
             product_rate = int(re.sub(r'[^0-9]', '', discount_rate_text))  # 숫자만 추출
             

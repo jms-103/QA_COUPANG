@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from pages.main_page import MainPage
-from pages.header_view import HeaderView
+from common.common import Common
 from pages.cart_page import CartPage
 from pages.product_page import ProductPage
 from pages.product_list_page import ProductListPage
@@ -19,11 +19,10 @@ from pages.product_list_page import ProductListPage
 @pytest.mark.usefixtures('driver')
 class TestCpTC003:
     def test_options(self, driver):
-        time_sleep_random = (randrange(3, 20)) * 0.1
         wait = WebDriverWait(driver, 10)
         cart_page = CartPage(driver)
         main_page = MainPage(driver)
-        header_view = HeaderView(driver)
+        common = Common(driver)
         product_list_page = ProductListPage(driver)
         product_page = ProductPage(driver)
         
@@ -35,16 +34,16 @@ class TestCpTC003:
 
             # 메인페이지 시작
             main_page.move_main()
-            header_view.sleep_random()
+            common.sleep_random()
             wait.until(
                 EC.presence_of_element_located(
-                    (By.XPATH, header_view.get_search())
+                    (By.XPATH, common.get_search())
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
 
             # 키워드 검색
-            header_view.search_items(KEY_WORD)
+            common.search_items(KEY_WORD)
 
             # 검색결과 대기
             wait.until(
@@ -54,7 +53,7 @@ class TestCpTC003:
             )
 
             # 첫 상품 클릭
-            header_view.sleep_random()
+            common.sleep_random()
             product_list_page.click_topN_product(0)
 
             # 상품 정보 대기

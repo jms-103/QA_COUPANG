@@ -2,9 +2,9 @@ import re
 import time
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
-from pages.header_view import HeaderView
+from common.common import Common
 
-class SpecialPricePage(HeaderView):
+class SpecialPricePage(Common):
     def __init__(self, driver:WebDriver):
         self.driver = driver
 

@@ -4,13 +4,13 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 
 
-class HeaderView():
+class Common():
     MAIN_URL = "https://www.coupang.com/"
     CART_URL = "https://cart.coupang.com/cartView.pang"
     SPECIAL_PRICE_URL = "https://www.coupang.com/np/omp"
 
 
-    time_sleep_random = (randrange(3, 20)) * 0.1
+    time_sleep_random = (randrange(21, 35)) * 0.1
     
 
     def __init__(self, driver:WebDriver):
@@ -48,8 +48,7 @@ class HeaderView():
         self.driver.find_element(By.XPATH, self.get_logout()).click()
     
     def search_items(self, item_name:str) -> None:
-        time_sleep_random = (randrange(3, 20)) * 0.1
-
+        self.sleep_random()
         search_input_box = self.driver.find_element(By.XPATH, self.get_search())
         search_input_box.send_keys(item_name)
         self.sleep_random

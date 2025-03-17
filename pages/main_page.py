@@ -1,12 +1,13 @@
 import time
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 # from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-from pages.header_view import HeaderView
+from common.common import Common
 
-class MainPage(HeaderView):
+class MainPage(Common):
 
     def __init__(self, driver:WebDriver):
         self.driver = driver
@@ -30,7 +31,10 @@ class MainPage(HeaderView):
         )
 
     def click_delete_recently_viewed(self, index) -> str:
-        self.driver.find_element(By.XPATH, self.get_delete_recently_viewed(index)).click()
+        element_to_hover = self.driver.find_element(By.XPATH, self.get_delete_recently_viewed(index))
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element_to_hover).perform()
+        element_to_hover.click()
         
     def refresh(self) -> None:  # 최근 본 상품 삭제 이후를 보기 위함
         self.driver.execute_script('location.reload()')

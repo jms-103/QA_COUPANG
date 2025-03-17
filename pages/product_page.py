@@ -1,10 +1,10 @@
 import time
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
-from header_view import HeaderView
+from common.common import Common
 
 
-class ProductPage(HeaderView):
+class ProductPage(Common):
     def __init__(self, driver:WebDriver):
         self.driver = driver
 

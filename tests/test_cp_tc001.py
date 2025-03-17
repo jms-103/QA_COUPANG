@@ -1,8 +1,5 @@
 import sys
 import os
-# print("Current working directory:", os.getcwd())
-# print("Python path:", sys.path)
-# print("Content of current directory:", os.listdir())
 import pytest
 from dotenv import load_dotenv
 from selenium.webdriver.common.by import By
@@ -10,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 
-from pages.header_view import HeaderView
+from common.common import Common
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from pages.product_list_page import ProductListPage
@@ -30,7 +27,7 @@ class TestCpTC001:
         
         wait = WebDriverWait(driver, 10)
         main_page = MainPage(driver)
-        header_view = HeaderView(driver)
+        common = Common(driver)
         login_page = LoginPage(driver)
         product_list_page = ProductListPage(driver)
 
@@ -48,15 +45,15 @@ class TestCpTC001:
             main_page.move_main()
             wait.until(
                 EC.presence_of_element_located(
-                    (By.XPATH, header_view.get_search())
+                    (By.XPATH, common.get_search())
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
             # 검색
-            header_view.search_items(KEY_WORD)
+            common.search_items(KEY_WORD)
 
             # 상품리스트 페이지
-            header_view.sleep_random()
+            common.sleep_random()
             wait.until(
                 EC.presence_of_element_located(
                     # 첫 상품 나오는지
@@ -75,10 +72,10 @@ class TestCpTC001:
             main_page.move_main()
             wait.until(
                 EC.presence_of_element_located(
-                    (By.XPATH, header_view.get_login())
+                    (By.XPATH, common.get_login())
                 )
             )
-            header_view.click_login()
+            common.click_login()
 
             # 로그인 페이지 진입
             wait.until(
@@ -91,10 +88,10 @@ class TestCpTC001:
 
             # 메인페이지
             # 검색
-            header_view.search_items(KEY_WORD)
+            common.search_items(KEY_WORD)
 
             # 상품리스트 페이지
-            header_view.sleep_random()
+            common.sleep_random()
             wait.until(
                 EC.presence_of_element_located(
                     # 첫 상품 나오는지

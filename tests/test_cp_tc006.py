@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from pages.main_page import MainPage
-from pages.header_view import HeaderView
+from common.common import Common
 from pages.login_page import LoginPage
 import os
 from dotenv import load_dotenv
@@ -19,12 +19,12 @@ from dotenv import load_dotenv
 @pytest.mark.usefixtures('driver')
 class TestCpTC006:
 
-    # 상위 3개 특가 물품 검증
-    @pytest.mark.parametrize('PRODUCT_NUM', [0, 1, 2])
-    def test_special_price(self, driver, PRODUCT_NUM):
+    # @pytest.mark.parametrize('PRODUCT_NUM', [0, 1, 2]) # 상위 3개 특가 물품 검증
+    # def test_special_price(self, driver, PRODUCT_NUM):
+    def test_special_price(self, driver):
         wait = WebDriverWait(driver, 10)
         main_page = MainPage(driver)
-        header_view = HeaderView(driver)
+        common = Common(driver)
         login_page = LoginPage(driver)
 
         load_dotenv(verbose=True)
@@ -39,10 +39,10 @@ class TestCpTC006:
             main_page.move_main()
             wait.until(
                 EC.presence_of_element_located(
-                    (By.XPATH, header_view.get_login())
+                    (By.XPATH, common.get_login())
                 )
             )
-            header_view.click_login()
+            common.click_login()
 
             # 로그인 페이지 진입
             wait.until(
@@ -53,17 +53,17 @@ class TestCpTC006:
 
             # 로그인
             login_page.login(COUPANG_EMAIL, COUPANG_PASSWORD)
-            header_view.sleep_random()
+            common.sleep_random()
             
             # 검색창 뜰 때 까지
             wait.until(
                 EC.presence_of_element_located(
-                    (By.XPATH, header_view.get_search())
+                    (By.XPATH, common.get_search())
                 )
             )
-            header_view.sleep_random()
+            common.sleep_random()
             main_page.scroll_down()
-            header_view.sleep_random()
+            common.sleep_random()
 
             count_a = main_page.get_count_recently_viewed()
 
