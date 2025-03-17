@@ -32,9 +32,7 @@ class MainPage(Common):
 
     def click_delete_recently_viewed(self, index) -> str:
         element_to_hover = self.driver.find_element(By.XPATH, self.get_delete_recently_viewed(index))
-        actions = ActionChains(self.driver)
-        actions.move_to_element(element_to_hover).perform()
-        element_to_hover.click()
+        self.mouse_move_click_action(element_to_hover)
         
     def refresh(self) -> None:  # 최근 본 상품 삭제 이후를 보기 위함
         self.driver.execute_script('location.reload()')

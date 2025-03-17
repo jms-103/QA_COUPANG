@@ -2,6 +2,7 @@ from random import randrange
 import time
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class Common():
@@ -10,7 +11,7 @@ class Common():
     SPECIAL_PRICE_URL = "https://www.coupang.com/np/omp"
 
 
-    time_sleep_random = (randrange(21, 35)) * 0.1
+    time_sleep_random = (randrange(27, 52)) * 0.1
     
 
     def __init__(self, driver:WebDriver):
@@ -51,6 +52,12 @@ class Common():
         self.sleep_random()
         search_input_box = self.driver.find_element(By.XPATH, self.get_search())
         search_input_box.send_keys(item_name)
-        self.sleep_random
+        self.sleep_random()
         search_button = self.driver.find_element(By.XPATH, self.get_search_button())
-        search_button.click()
+        self.mouse_move_click_action(search_button)
+
+    def mouse_move_click_action(self, element) -> None:
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        self.sleep_random()
+        element.click()

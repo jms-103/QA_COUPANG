@@ -84,7 +84,9 @@ class TestCpTC001:
                 )
             )
 
+            common.sleep_random()
             login_page.login(COUPANG_EMAIL, COUPANG_PASSWORD)
+            common.sleep_random()
 
             # 메인페이지
             # 검색

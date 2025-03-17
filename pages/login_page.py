@@ -27,4 +27,4 @@ class LoginPage(Common):
         password.send_keys(pw)
         self.sleep_random()
 
-        login_button.click()
+        self.mouse_move_click_action(login_button)
