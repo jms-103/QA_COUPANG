@@ -1,4 +1,6 @@
+import pickle
 import pytest
+from random import randint
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -16,8 +18,14 @@ def driver():
     chrome_options = Options()  
 
     # 쿠팡 자동화로 열면 클릭 이후 자동화 동작 안하므로 아래와 같은 코드 삽입
+    arg = ["user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/91.0",
+           "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"]
     # 1) User-Agent 변경
-    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/91.0")
+    arg_index = randint(0, 1)
+    chrome_options.add_argument(arg[arg_index])
+    # chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/91.0")
+    # chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+
     # 2) SSL 인증서 에러 무시
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--ignore-ssl-errors")
@@ -45,9 +53,14 @@ def driver():
     # 우리 쿠팡 url 타고 온거야
     driver.execute_cdp_cmd("Network.setExtraHTTPHeaders", {"headers": {"Referer": "https://www.coupang.com/"}})
 
+    driver.execute_cdp_cmd("Network.clearBrowserCache", {})
+
     # 그런데 쓰다 ip 막힐 수 있음. ip막히지 않도록 잘 써야 함
 
+
     driver.implicitly_wait(5)
+
+    
 
     yield driver
 

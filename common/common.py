@@ -10,7 +10,6 @@ class Common():
     CART_URL = "https://cart.coupang.com/cartView.pang"
     SPECIAL_PRICE_URL = "https://www.coupang.com/np/omp"
 
-
     time_sleep_random = (randrange(27, 52)) * 0.1
     
 
@@ -54,6 +53,7 @@ class Common():
         search_input_box.send_keys(item_name)
         self.sleep_random()
         search_button = self.driver.find_element(By.XPATH, self.get_search_button())
+        # self.dirver.get()
         self.mouse_move_click_action(search_button)
 
     def mouse_move_click_action(self, element) -> None:

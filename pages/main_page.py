@@ -1,3 +1,4 @@
+import pickle
 import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
@@ -39,7 +40,15 @@ class MainPage(Common):
         
     # 메인 페이지 열기
     def move_main(self) -> None:
+
+        # 쿠키로 로그인
+        # cookies = pickle.load(open("coupang_cookies.pkl", "rb"))
+        # for cookie in cookies:
+        #     self.driver.add_cookie(cookie)    
+        
         self.driver.get(self.get_main_url())
+        
+        
 
     def click_LINK_TEXT(self, link_text: str) -> None:
         login_button = self.driver.find_element(By.LINK_TEXT, link_text)
