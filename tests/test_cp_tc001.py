@@ -50,9 +50,10 @@ class TestCpTC001:
                     (By.XPATH, common.get_login())
                 )
             )
-            # common.login(COUPANG_EMAIL, COUPANG_PASSWORD)
-
+            
             # 로그인 페이지 진입
+            login_page.click_login()
+
             wait.until(
                 EC.presence_of_element_located(
                     (By.XPATH, login_page.get_email())
