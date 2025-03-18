@@ -89,6 +89,7 @@ class TestCpTC001:
 
         # 로그아웃 후 -> compare_b
         try:
+            common.sleep_random()
             # main_page.move_main()
             main_page.click_logout()
             wait.until(
