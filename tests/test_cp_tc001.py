@@ -37,6 +37,7 @@ class TestCpTC001:
         COUPANG_EMAIL = os.getenv('EMAIL')
         COUPANG_PASSWORD = os.getenv('PASSWORD')
         
+        SUB_KEYWORD = ['아이패드', '아이폰 16 케이스', '아이패드 에어']
         KEY_WORD = '노트북'
 
         compare_a = {}
@@ -50,7 +51,7 @@ class TestCpTC001:
                     (By.XPATH, common.get_login())
                 )
             )
-            
+
             # 로그인 페이지 진입
             login_page.click_login()
 
@@ -70,6 +71,7 @@ class TestCpTC001:
 
             # 메인페이지
             # 검색
+            common.search_item_subkeyword_mimicking(SUB_KEYWORD)
             common.search_items(KEY_WORD)
 
             # 상품리스트 페이지
@@ -91,6 +93,7 @@ class TestCpTC001:
         try:
             common.sleep_random()
             # main_page.move_main()
+            common.sleep_random()
             main_page.click_logout()
             wait.until(
                 EC.presence_of_element_located(
@@ -99,6 +102,7 @@ class TestCpTC001:
             )
             common.sleep_random()
             # 검색
+            common.search_item_subkeyword_mimicking(SUB_KEYWORD)  # 사람흉내용 서브키워드 검색
             common.search_items(KEY_WORD)
 
             # 상품리스트 페이지

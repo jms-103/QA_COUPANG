@@ -62,7 +62,7 @@ class TestCpTC006:
                 )
             )
             common.sleep_random()
-            main_page.scroll_down()
+            main_page.scroll_down_recently_viewed()
             common.sleep_random()
 
             count_a = main_page.get_count_recently_viewed()

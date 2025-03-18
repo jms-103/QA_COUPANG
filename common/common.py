@@ -10,14 +10,20 @@ class Common():
     CART_URL = "https://cart.coupang.com/cartView.pang"
     SPECIAL_PRICE_URL = "https://www.coupang.com/np/omp"
 
-    time_sleep_random = (randrange(27, 52)) * 0.1
+    time_sleep_random = (randrange(37, 82)) * 0.1
+
+    def scroll_down(self) -> None:
+        self.driver.execute_script(
+            '''
+            window.scrollBy(0, 100)
+            '''
+        )
     
 
     def __init__(self, driver:WebDriver):
         self.driver = driver
 
     def sleep_random(self) -> None:
-        self.time_sleep_random
         time.sleep(self.time_sleep_random)
 
     def get_main_url(self) -> str:
@@ -55,6 +61,11 @@ class Common():
         search_button = self.driver.find_element(By.XPATH, self.get_search_button())
         # self.dirver.get()
         self.mouse_move_click_action(search_button)
+
+    def search_item_subkeyword_mimicking(self, subkeyword: list) -> None:
+        for sk in subkeyword:
+            self.search_items(sk)
+            self.scroll_down()
 
     def mouse_move_click_action(self, element) -> None:
         actions = ActionChains(self.driver)

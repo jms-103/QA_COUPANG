@@ -22,7 +22,7 @@ class MainPage(Common):
         
     
     # 최근 본 상품 조회를 위해 스크롤 내림
-    def scroll_down(self) -> None:
+    def scroll_down_recently_viewed(self) -> None:
         self.driver.execute_script("""
         const element = document.querySelector('.recently-viewed-products');
         if (element) {
