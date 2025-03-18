@@ -53,6 +53,7 @@ class TestCpTC001:
             )
 
             # 로그인 페이지 진입
+            
             login_page.click_login()
 
             wait.until(
@@ -62,7 +63,7 @@ class TestCpTC001:
             )
 
             common.sleep_random()
-            login_page.login(COUPANG_EMAIL, COUPANG_PASSWORD)
+            # login_page.login(COUPANG_EMAIL, COUPANG_PASSWORD)
             common.sleep_random()
 
             # time.sleep(120)
@@ -71,7 +72,7 @@ class TestCpTC001:
 
             # 메인페이지
             # 검색
-            common.search_item_subkeyword_mimicking(SUB_KEYWORD)
+            # common.search_item_subkeyword_mimicking(SUB_KEYWORD)
             common.search_items(KEY_WORD)
 
             # 상품리스트 페이지
